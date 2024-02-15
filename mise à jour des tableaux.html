@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mise à jour automatique des tableaux</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    // Fonction pour mettre à jour les tableaux
+    function updateTables(){
+        $.ajax({
+            url: 'https://www.brvm.org/fr/cours-actions/0',
+            type: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Extraire les données pertinentes du site BRVM et les mettre à jour dans les tableaux HTML
+                // Exemple pour chaque tableau :
+                var newData1 = $(data).find('#Table 0').html();
+                $('#TABLEAU_LOCAL_1').html(newData1);
+
+                var newData2 = $(data).find('#Table 1').html();
+                $('#TABLEAU_LOCAL_2').html(newData2);
+
+                var newData3 = $(data).find('#ID_DU_TABLEAU_BRVM_3').html();
+                $('#ID_DU_TABLEAU_LOCAL_3').html(newData3);
+
+                var newData4 = $(data).find('#ID_DU_TABLEAU_BRVM_4').html();
+                $('#ID_DU_TABLEAU_LOCAL_4').html(newData4);
+            },
+            error: function(xhr, status, error) {
+                console.error('Erreur lors de la récupération des données de la BRVM:', error);
+            }
+        });
+    }
+
+    // Appeler la fonction de mise à jour toutes les 15 minutes
+    setInterval(updateTables, 15 * 60 * 1000); // 15 minutes en millisecondes
+});
+</script>
+</head>
+<body>
+<!-- Tableau 1 à mettre à jour -->
+<div class="table-responsive" id="TABLEAU_LOCAL_1">
+    <table class="top-five table table-hover sticky-enabled">
+     <thead><tr><th class="text-left">Top 5</th><th class="text-right">Cours</th><th class="text-right">Variation</th> </tr></thead>
+    <tbody>
+     <tr><td>SDCC</td><td class="text-right"> 500</td><td class="text-right">5,88% <span class="icone-seance good"></span></td> </tr>
+     <tr><td>ABJC</td><td class="text-right">1 345</td><td class="text-right">5,08% <span class="icone-seance good"></span></td> </tr>
+     <tr><td>SOGC</td><td class="text-right">3 200</td><td class="text-right">4,92% <span class="icone-seance good"></span></td> </tr>
+     <tr><td>STBC</td><td class="text-right">6 120</td><td class="text-right">2,00% <span class="icone-seance good"></span></td> </tr>
+     <tr><td>SNTS</td><td class="text-right">17 200</td><td class="text-right">1,18% <span class="icone-seance good"></span></td> </tr>
+    </tbody>
+    </table>
+    </div>
+
+<!-- Tableau 2 à mettre à jour -->
+<div class="table-responsive">
+    <table class="flop-five table table-hover sticky-enabled">
+     <thead><tr><th>Flop 5</th><th class="text-right">Cours</th><th class="text-right">Variation</th> </tr></thead>
+    <tbody>
+     <tr><td>BNBC</td><td class="text-right">1 190</td><td class="text-right">-7,39% <span class="icone-seance bad"></span></td> </tr>
+     <tr><td>TTLS</td><td class="text-right">2 250</td><td class="text-right">-5,46% <span class="icone-seance bad"></span></td> </tr>
+     <tr><td>SHEC</td><td class="text-right">780</td><td class="text-right">-3,11% <span class="icone-seance bad"></span></td> </tr>
+     <tr><td>ONTBF</td><td class="text-right">2 200</td><td class="text-right">-3,08% <span class="icone-seance bad"></span></td> </tr>
+     <tr><td>CIEC</td><td class="text-right">1 600</td><td class="text-right">-3,03% <span class="icone-seance bad"></span></td> </tr>
+    </tbody>
+    </table>
+    </div>
+<table id="ID_DU_TABLEAU_LOCAL_2">
+    <!-- Contenu initial du tableau 2 -->
+</table>
+
+<!-- Tableau 3 à mettre à jour -->
+<table id="ID_DU_TABLEAU_LOCAL_3">
+    <!-- Contenu initial du tableau 3 -->
+</table>
+
+<!-- Tableau 4 à mettre à jour -->
+<table id="ID_DU_TABLEAU_LOCAL_4">
+    <!-- Contenu initial du tableau 4 -->
+</table>
+</body>
+</html>
